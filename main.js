@@ -23,7 +23,18 @@ function createDivRow(parent) {
 function createDiv(parent) {
   let div = document.createElement("div");
   div.style.flex = "1";
+  div.style.backgroundColor = "" + getRandomColor();
   return div;
+}
+
+function getRandomColor() {
+  var letters = "0123456789ABCDEF";
+  var color = "#";
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  //console.log(color);
+  return color;
 }
 
 function makeFlexStyle(parent) {
