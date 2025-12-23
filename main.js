@@ -1,18 +1,51 @@
 setup();
 
 function setup() {
-  let container = document.querySelector(".container");
-  for (let index = 0; index < 16; index++) {
-    let row = createDivRow(container);
-    container.appendChild(row);
+  let body = document.querySelector("body");
+  let button = document.createElement("button");
+  button.classList.add("violet-btn");
+  button.textContent = "Add New Grid";
+  button.addEventListener("click", getNewGrid);
+  document.body.insertBefore(button, document.querySelector(".container"));
+
+  createGrid(16);
+}
+
+function cleanup() {
+  const container = document.querySelector(".container");
+  if (container) {
+    container.innerHTML = "";
   }
 }
 
-function createDivRow() {
-  console.log("createDivRow");
+function getNewGrid() {
+  cleanup();
+  let size = prompt("Please enter the size of the new Grid (1-100):");
+  if (size < 1 || size > 100) {
+    alert("Size was not in the given range, generating with size 100 ...");
+    size = 100;
+  }
+  createGrid(size);
+}
+
+function createGrid(value) {
+  let container = document.querySelector(".container");
+
+  if (!container) {
+    container = document.createElement("div");
+    container.classList.add("container");
+    document.body.appendChild(container);
+  }
+
+  for (let i = 0; i < value; i++) {
+    container.appendChild(createDivRow(value));
+  }
+}
+
+function createDivRow(value) {
   let row = document.createElement("div");
   makeFlexStyle(row);
-  for (let index = 0; index < 16; index++) {
+  for (let index = 0; index < value; index++) {
     let div = createDiv(row);
     row.appendChild(div);
   }
@@ -26,8 +59,8 @@ function createDiv() {
   div.style.aspectRatio = "1/1";
   div.style.width = "4vw";
   div.style.height = "4vw";
+  //div.style.border = "1px solid black";
   div.classList.add("hoverable");
-  console.log("check");
   return div;
 }
 
